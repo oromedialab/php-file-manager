@@ -106,6 +106,18 @@ class Writer
 	}
 
 	/**
+	 * Set File Name
+	 *
+	 * @param string $fileName
+	 * @return $this
+	 */
+	public function setFileName($fileName)
+	{
+		$this->fileName = $fileName;
+		return $this;
+	}
+
+	/**
 	 * Get File Name
 	 *
 	 * @return string
