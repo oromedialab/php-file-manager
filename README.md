@@ -4,12 +4,12 @@ PHP Utility Class to Manage Files and Operations
 
 #### Install using composer
 ```
-composer.phar require oro-media-lab/php-file-manager dev-master
+composer require oromedialab/php-file-manager dev-master
 ```
 
 #### Install using GIT clone
 ```
-git clone https://github.com/oro-media-lab/php-file-manager.git
+git clone https://github.com/oromedialab/php-file-manager.git
 ```
 
 Xls Writer
