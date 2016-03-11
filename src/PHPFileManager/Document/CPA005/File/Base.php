@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * @author Ibrahim Azhar Armar <azhar@iarmar.com>
+ * @package Oml\PHPFileManager\Document\CPA005
+ * @version 0.1
+ */
 namespace Oml\PHPFileManager\Document\CPA005\File;
 
 use Oml\PHPFileManager\Document\CPA005\Interfaces\FileWriterInterface;
@@ -7,12 +11,44 @@ use Oml\PHPFileManager\Document\CPA005\Interfaces\LogicalRecordTypeInterface;
 
 class Base implements FileWriterInterface
 {
+	/**
+	 * Logical Record A
+	 * @var array
+	 */
 	protected $logicalRecordA = array();
 
+	/**
+	 * Logical Record Z
+	 * @var array
+	 */
 	protected $logicalRecordZ = array();
 
+	/**
+	 * Logical Records (C, D)
+	 * @var array
+	 */
 	protected $logicalRecords = array();
 
+	/**
+	 * File Name
+	 * @var string
+	 */
+	protected $fileName;
+
+	/**
+	 * Get File Extension
+	 * @return string
+	 */
+	public function getFileExtension()
+	{
+		return static::FILE_EXTENSION;
+	}
+
+	/**
+	 * Add Logical Record
+	 * @param LogicalRecordTypeInterface $logicalRecord
+	 * @param string                     $type         
+	 */
 	public function addLogicalRecord(LogicalRecordTypeInterface $logicalRecord, $type = null)
 	{
 		if ('A' == $type) {
@@ -27,21 +63,56 @@ class Base implements FileWriterInterface
 		return $this;
 	}
 
+	/**
+	 * Set File Name
+	 * @param string $fileName
+	 */
+	public function setFileName($fileName)
+	{
+		$this->fileName = $fileName;
+		return $this;
+	}
+
+	/**
+	 * Get File Name
+	 * @return string
+	 */
+	public function getFileName()
+	{
+		return $this->fileName;
+	}
+
+	/**
+	 * Get Logical Record A
+	 * @return LogicalRecord\TypeA
+	 */
 	protected function getLogicalRecordA()
 	{
 		return $this->logicalRecordA;
 	}
 
+	/**
+	 * Get Logical Record Z
+	 * @return LogicalRecord\TypeZ
+	 */
 	protected function getLogicalRecordZ()
 	{
 		return $this->logicalRecordZ;
 	}
 
+	/**
+	 * Get Logical Records
+	 * @return array LogicalReord
+	 */
 	protected function getLogicalRecords()
 	{
 		return $this->getLogicalRecords;
 	}
 
+	/**
+	 * Dump Logical Records
+	 * @return string
+	 */
 	public function dump()
 	{
 		if (empty($this->getLogicalRecordA())) {
@@ -56,10 +127,5 @@ class Base implements FileWriterInterface
 		}
 		$values .= $this->getLogicalRecordZ()->dump().PHP_EOL;
 		return $values;
-	}
-
-	public function getFileExtension()
-	{
-		return static::FILE_EXTENSION;
 	}
 }

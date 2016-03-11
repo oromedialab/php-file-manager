@@ -1,14 +1,20 @@
 <?php
-
+/**
+ * @author Ibrahim Azhar Armar <azhar@iarmar.com>
+ * @package Oml\PHPFileManager\Document\CPA005
+ * @version 0.1
+ */
 namespace Oml\PHPFileManager\Document\CPA005\LogicalRecord;
 
 use Oml\PHPFileManager\Document\CPA005\Interfaces\LogicalRecordTypeInterface;
+use Oml\PHPFileManager\Document\CPA005\Utility\Functions;
+use Oml\PHPFileManager\Document\CPA005\Utility\Fillers;
 
 class TypeZ extends Base implements LogicalRecordTypeInterface
 {
 	/**
 	 * Logical Record Type ID
-	 * Example:(A, C, D, Z), Length=1, Position[start]=1, Position[end]=1
+	 * [Length=1, Position[start]=1, Position[end]=1, Example:(A, C, D, Z)]
 	 *
 	 * @var string
 	 */
@@ -26,8 +32,9 @@ class TypeZ extends Base implements LogicalRecordTypeInterface
 	 * Total Amount Of Debits
 	 *     Total dollar value of debits, The sum of the Amount fields on all D records
 	 *     Zero fill if there are no debit records
+	 *     Must be in format $$$$$$$$$$$$¢¢
 	 *     The file will be rejected if this field does not balance to the SUM of amount in D records 
-	 * Example: (00000000005000), Length=14, Position[start]=25, Position[end]=38
+	 * [Length=14, Position[start]=25, Position[end]=38, Example: $$$$$$$$$$$$¢¢]
 	 *
 	 * @var integer
 	 */
@@ -38,7 +45,7 @@ class TypeZ extends Base implements LogicalRecordTypeInterface
 	 *     The number of D records in the file
 	 *     Zero fill if there are no debit records
 	 *     The file will be rejected if this field does not balance to the number of D records
-	 * Example: (00000006), Length=8, Position[start]=39, Position[end]=46
+	 * [Length=8, Position[start]=39, Position[end]=46, Example: 00000001]
 	 *
 	 * @var integer
 	 */
@@ -48,8 +55,9 @@ class TypeZ extends Base implements LogicalRecordTypeInterface
 	 * Total Amount Of Credits
 	 *     Total dollar value of credits, The sum of the Amount fields on all C records
 	 *     Zero fill if there are no credit records
+	 *     Must be in format $$$$$$$$$$$$¢¢
 	 *     The file will be rejected if this field does not balance to the SUM of amount in C records 
-	 * Example: (00000000008000), Length=14, Position[start]=47, Position[end]=60
+	 * [Length=14, Position[start]=47, Position[end]=60, Example: $$$$$$$$$$$$¢¢]
 	 *
 	 * @var integer
 	 */
@@ -60,7 +68,7 @@ class TypeZ extends Base implements LogicalRecordTypeInterface
 	 *     The number of C records in the file
 	 *     Zero fill if there are no credit records
 	 *     The file will be rejected if this field does not balance to the number of C records
-	 * Example: (000000026), Length=8, Position[start]=61, Position[end]=68
+	 * [Length=8, Position[start]=61, Position[end]=68, Example: 00000001]
 	 *
 	 * @var integer
 	 */
@@ -116,15 +124,14 @@ class TypeZ extends Base implements LogicalRecordTypeInterface
 	}
 
 	/**
-	 * Set Total Amount of Debits
+	 * Set Total Amount of Debits ($$$$$$$$$$$$¢¢)
 	 *
 	 * @param integer $value
 	 * @return $this
 	 */
 	public function setTotalAmountOfDebits($value)
 	{
-		$value = (int)$value;
-		$this->totalAmountOfDebits = sprintf('%014d', $value);
+		$this->totalAmountOfDebits = Functions::formatAmount($value, 12);
 		return $this;
 	}
 
@@ -162,15 +169,14 @@ class TypeZ extends Base implements LogicalRecordTypeInterface
 	}
 
 	/**
-	 * Set Total Amount of Credits
+	 * Set Total Amount of Credits ($$$$$$$$$$$$¢¢)
 	 *
 	 * @param integer $value
 	 * @return $this
 	 */
 	public function setTotalAmountOfCredits($value)
 	{
-		$value = (int)$value;
-		$this->totalAmountOfCredits = sprintf('%014d', $value);
+		$this->totalAmountOfCredits = Functions::formatAmount($value, 12);
 		return $this;
 	}
 
@@ -226,7 +232,7 @@ class TypeZ extends Base implements LogicalRecordTypeInterface
 	 */
 	public function getTotalValueOfErrorCorrectionsForE()
 	{
-		return empty($this->totalValueOfErrorCorrectionsForE) ? $this->fillers(null, 14, parent::FILLER_VALUE_ZERO) : $this->totalValueOfErrorCorrectionsForE;
+		return empty($this->totalValueOfErrorCorrectionsForE) ? Fillers::generate(null, 14, Fillers::ZERO_FILLER) : $this->totalValueOfErrorCorrectionsForE;
 	}
 
 	/**
@@ -248,7 +254,7 @@ class TypeZ extends Base implements LogicalRecordTypeInterface
 	 */
 	public function getTotalNumberOfErrorCorrectionsForE()
 	{
-		return empty($this->totalNumberOfErrorCorrectionsForE) ? $this->fillers(null, 8, parent::FILLER_VALUE_ZERO) : $this->totalNumberOfErrorCorrectionsForE;
+		return empty($this->totalNumberOfErrorCorrectionsForE) ? Fillers::generate(null, 8, Fillers::ZERO_FILLER) : $this->totalNumberOfErrorCorrectionsForE;
 	}
 
 	/**
@@ -270,7 +276,7 @@ class TypeZ extends Base implements LogicalRecordTypeInterface
 	 */
 	public function getTotalValueOfErrorCorrectionsForF()
 	{
-		return empty($this->totalValueOfErrorCorrectionsForF) ? $this->fillers(null, 14, parent::FILLER_VALUE_ZERO) : $this->totalValueOfErrorCorrectionsForF;
+		return empty($this->totalValueOfErrorCorrectionsForF) ? Fillers::generate(null, 14, Fillers::ZERO_FILLER) : $this->totalValueOfErrorCorrectionsForF;
 	}
 
 	/**
@@ -292,7 +298,7 @@ class TypeZ extends Base implements LogicalRecordTypeInterface
 	 */
 	public function getTotalNumberOfErrorCorrectionsForF()
 	{
-		return empty($this->totalNumberOfErrorCorrectionsForF) ? $this->fillers(null, 8, parent::FILLER_VALUE_ZERO) : $this->totalNumberOfErrorCorrectionsForF;
+		return empty($this->totalNumberOfErrorCorrectionsForF) ? Fillers::generate(null, 8, Fillers::ZERO_FILLER) : $this->totalNumberOfErrorCorrectionsForF;
 	}
 
 	/**
@@ -306,8 +312,8 @@ class TypeZ extends Base implements LogicalRecordTypeInterface
 		$value  = $this->getLogicalRecordTypeId();
 		// Logical Record Count
 		$value .= $this->getLogicalRecordCount();
-		// Customer Number
-		$value .= $this->getCustomerNumber();
+		// Originator Account Number
+		$value .= $this->getOriginatorAccountNumber();
 		// File Creation Number (FCN)
 		$value .= $this->getFileCreationNumber();
 		switch ($this->getType()) {
@@ -318,8 +324,8 @@ class TypeZ extends Base implements LogicalRecordTypeInterface
 				if (empty($this->getTotalNumberOfCredits())) {
 					throw new \Exception('Empty or invalid total number of credits, set total number of credits using '.__CLASS__.'::setTotalNumberOfCredits');
 				}
-				$value .= $this->fillers(null, 14, parent::FILLER_VALUE_ZERO);
-				$value .= $this->fillers(null, 8, parent::FILLER_VALUE_ZERO);
+				$value .= Fillers::generate(null, 14, Fillers::ZERO_FILLER);
+				$value .= Fillers::generate(null, 8, Fillers::ZERO_FILLER);
 				$value .= $this->getTotalAmountOfCredits();
 				$value .= $this->getTotalNumberOfCredits();
 			break;
@@ -332,8 +338,8 @@ class TypeZ extends Base implements LogicalRecordTypeInterface
 				}
 				$value .= $this->getTotalAmountOfDebits();
 				$value .= $this->getTotalNumberOfDebits();
-				$value .= $this->fillers(null, 14, parent::FILLER_VALUE_ZERO);
-				$value .= $this->fillers(null, 8, parent::FILLER_VALUE_ZERO);
+				$value .= Fillers::generate(null, 14, Fillers::ZERO_FILLER);
+				$value .= Fillers::generate(null, 8, Fillers::ZERO_FILLER);
 			break;
 		}
 		// Total Value of Error Corrections "E"
@@ -345,7 +351,7 @@ class TypeZ extends Base implements LogicalRecordTypeInterface
 		// Total Number of Error Corrections "F"
 		$value .= $this->getTotalNumberOfErrorCorrectionsForF();
 		// Fillers
-		$value .= $this->fillers($value);
+		$value .= Fillers::generate($value);
 		return $value;
 	}
 }

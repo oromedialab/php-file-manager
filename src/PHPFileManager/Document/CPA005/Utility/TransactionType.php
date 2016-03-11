@@ -1,6 +1,12 @@
 <?php
-
+/**
+ * @author Ibrahim Azhar Armar <azhar@iarmar.com>
+ * @package Oml\PHPFileManager\Document\CPA005
+ * @version 0.1
+ */
 namespace Oml\PHPFileManager\Document\CPA005\Utility;
+
+use ReflectionClass;
 
 class TransactionType
 {
@@ -53,10 +59,10 @@ class TransactionType
 	const VAC 				 = 313;
 	const PS_SUPERANNUATION  = 315;
 	const CF_SUPERANNUATION  = 316;
-	const TAX_REFUND 	     = 317;
+	const TAX_REFUND_1 	     = 317;
 	const EI 				 = 318;
 	const PAD_CCRA 			 = 319;
-	const STUDENT_LOAN 		 = 320;
+	const STUDENT_LOAN_1 	 = 320;
 	const CSB_INTEREST 		 = 321;
 	const EXTERNAL_AFFAIRS   = 322;
 	const SAVINGS_PLAN 		 = 323;
@@ -83,7 +89,7 @@ class TransactionType
 	const INSURANCE_LOANS 				= 356;
 	const MORTGAGE 						= 370;
 	const RESIDENTIAL_MORTGAGE 			= 371;
-	const COMMERCIAL_MORTGAGE 			= 372;
+	const COMMERCIAL_MORTGAGE_1 		= 372;
 	const FARM_MORTGAGE 				= 373;
 	const TAXES 						= 380;
 	const INCOME_TAXES 					= 381;
@@ -134,11 +140,11 @@ class TransactionType
 	const OFFENCES_AND_FINES			  = 610;
 	const DISABILITY_PAYMENT			  = 611;
 	const PARENTAL_INSURANCE			  = 612;
-	const STUDENT_LOAN					  = 613;
+	const STUDENT_LOAN_2				  = 613;
 	const GRANT_BURSARY					  = 614;
 	const SOLIDARITY_TAX_CREDIT			  = 615;
 	const CHILDREN_ASSISTANCE			  = 616;
-	const TAX_REFUND					  = 617;
+	const TAX_REFUND_2					  = 617;
 
 	/**
 	 * Future Use 
@@ -160,7 +166,7 @@ class TransactionType
 	const COMMERCIAL_CASUALITY_INSURANCE 	= 705;
 	const COMMERCIAL_MORTGAGE_INSURANCE 	= 706;
 	const COMMERCIAL_LOANS 					= 707;
-	const COMMERCIAL_MORTGAGE 				= 708;
+	const COMMERCIAL_MORTGAGE_2				= 708;
 	const COMMERCIAL_TAXES 					= 709;
 	const COMMERCIAL_INCOME_TAXES 			= 710;
 	const COMMERCIAL_SALES_TAXES 			= 711;
@@ -223,4 +229,20 @@ class TransactionType
 	 * @var integer 
 	 */
 	const INSTITUTION_IN_DEFAULT = 990;
+
+	private static function getConstants()
+	{
+        $class = new ReflectionClass(__CLASS__);
+        return $class->getConstants();
+    }
+
+    private static function getConstantValues()
+    {
+    	return array_values(self::getConstants());
+    }
+
+    public static function constantValueExist($value)
+    {
+    	return in_array($value, self::getConstantValues());
+    }
 }

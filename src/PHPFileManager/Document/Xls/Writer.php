@@ -3,7 +3,7 @@
  * Xls Writer
  *
  * @author Ibrahim Azhar Armar <azhar@iarmar.com>
- * @package Oml\FileManager\Xls
+ * @package Oml\PHPFileManager\Document\Xls
  * @version 0.1
  */
 namespace Oml\PHPFileManager\Document\Xls;
@@ -11,7 +11,7 @@ namespace Oml\PHPFileManager\Document\Xls;
 use PHPExcel;
 use PHPExcel_IOFactory;
 
-use Zend\Math\Rand;
+use Oml\PHPFileManager\Utility\Functions;
 
 class Writer
 {
@@ -67,7 +67,7 @@ class Writer
 			$doc->getActiveSheet()->fromArray(array($row), null, 'A'.$index);
 			$index++;
 		}
-		$fileName = !empty($this->getFileName()) ? $this->getFileName() : $this->generateRandomString(8);
+		$fileName = !empty($this->getFileName()) ? $this->getFileName() : Functions::generateRandomString(10);
 		$file = $fileName.'.'.$this->getFileExtension();
 		$writer = PHPExcel_IOFactory::createWriter($doc, 'Excel5');
 		header('Content-type: '.$this->getContentType());
@@ -125,14 +125,5 @@ class Writer
 	protected function getFileName()
 	{
 		return $this->fileName;
-	}
-
-	/**
-	 * Generate random string from a given length
-	 */
-	protected function generateRandomString($length)
-	{
-		$length = (int)$length;
-		return Rand::getString($length, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', true);
 	}
 }

@@ -1,14 +1,20 @@
 <?php
-
+/**
+ * @author Ibrahim Azhar Armar <azhar@iarmar.com>
+ * @package Oml\PHPFileManager\Document\CPA005
+ * @version 0.1
+ */
 namespace Oml\PHPFileManager\Document\CPA005\LogicalRecord;
 
 use Oml\PHPFileManager\Document\CPA005\Interfaces\LogicalRecordTypeInterface;
+use Oml\PHPFileManager\Document\CPA005\Utility\Functions;
+use Oml\PHPFileManager\Document\CPA005\Utility\Fillers;
 
 class TypeA extends Base implements LogicalRecordTypeInterface
 {
 	/**
 	 * Logical Record Type ID
-	 * Example:(A, C, D, Z), Length=1, Position[start]=1, Position[end]=1
+	 * [Length=1, Position[start]=1, Position[end]=1, Example:(A, C, D, Z)]
 	 *
 	 * @var string
 	 */
@@ -19,7 +25,7 @@ class TypeA extends Base implements LogicalRecordTypeInterface
 	 *    Julian Format - 0yyddd where yy are the last two digits of the yearin the range 001-366
 	 *    October 2, 2001 is represented as 001275.
 	 *    The file will be rejected if this field is invalid, contains a date in the future, or contains a date more than ten days prior to transmission date
-	 * Example: (001275), Length=6, Position[start]=25, Position[end]=30
+	 * [Length=6, Position[start]=25, Position[end]=30, Example: (001275)]
 	 *
 	 * @var \DateTime
 	 */
@@ -27,7 +33,7 @@ class TypeA extends Base implements LogicalRecordTypeInterface
 
 	/**
 	 * File Processing Centre (The centre where the file will be processed.)
-	 *     Example: (81510), Length=5, Position[start]=31, Position[end]=35
+	 * [Length=5, Position[start]=31, Position[end]=35]
 	 */
 	protected $fileProcessingCentre;
 
@@ -49,23 +55,13 @@ class TypeA extends Base implements LogicalRecordTypeInterface
 	}
 
 	/**
-	 * Get File Creation Date (convert into julian date format (0yyddd))
+	 * Get File Creation Date
 	 *
 	 * @return string
 	 */
 	public function getFileCreationDate()
 	{
-		$date = $this->fileCreationDate;
-		if (!$date instanceof \DateTime) {
-			throw new \Exception('File creation date must be instance of datetime, '.gettype($date).' given');
-		}
-		$firstDayOfTheYear = new \DateTime($date->format('Y').'-01-01');
-		$difference = $firstDayOfTheYear->diff($date);
-		$daysDifference = $difference->days + 1;
-		$value  = '0';
-		$value .= $date->format('y');
-		$value .= sprintf('%03d', $daysDifference);
-		return $value;
+		return Functions::dateTimeToJulianFormat($this->fileCreationDate);
 	}
 
 	/**
@@ -101,8 +97,8 @@ class TypeA extends Base implements LogicalRecordTypeInterface
 		$value  = $this->getLogicalRecordTypeId();
 		// Logical Record Count
 		$value .= $this->getLogicalRecordCount();
-		// Customer Number
-		$value .= $this->getCustomerNumber();
+		// Originator Account Number
+		$value .= $this->getOriginatorAccountNumber();
 		// File Creation Number
 		$value .= $this->getFileCreationNumber();
 		// File Creation Date
@@ -110,7 +106,7 @@ class TypeA extends Base implements LogicalRecordTypeInterface
 		// File Processing Centre
 		$value .= $this->getFileProcessingCentre();
 		// Fillers
-		$value .= $this->fillers($value);
+		$value .= Fillers::generate($value);
 		return $value;
 	}
 }

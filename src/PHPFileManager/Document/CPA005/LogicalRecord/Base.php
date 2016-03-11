@@ -1,23 +1,13 @@
 <?php
-
+/**
+ * @author Ibrahim Azhar Armar <azhar@iarmar.com>
+ * @package Oml\PHPFileManager\Document\CPA005
+ * @version 0.1
+ */
 namespace Oml\PHPFileManager\Document\CPA005\LogicalRecord;
 
 class Base
 {
-	/**
-	 * Filler Value (Space)
-	 *
-	 * @var string
-	 */
-	const FILLER_VALUE_SPACE = ' ';
-
-	/**
-	 * Filler Value (Zero)
-	 *
-	 * @var string
-	 */
-	const FILLER_VALUE_ZERO = 0;
-
 	/**
 	 * Record Length
 	 *
@@ -26,21 +16,28 @@ class Base
 	const RECORD_LENGTH = 1464;
 
 	/**
+	 * Segment limit
+	 *
+	 * @var integer
+	 */
+	const SEGMENT_LIMIT = 6;
+
+	/**
 	 * Logical Record Type Count
-	 * Example:(000000001, 000000002...), Length=9, Position[start]=2, Position[end]=10
+	 * [Length=9, Position[start]=2, Position[end]=10, Example: (000000001, 000000002...)]
 	 *
 	 * @var integer
 	 */
 	protected $logicalRecordCount;
 
 	/**
-	 * Customer Number (Originator's ID)
+	 * Originator Account Number
 	 *     10 digit customer number as follows: 6 digit client number assigned by Bank & 4 digit Operating subsidiary number assigned by the client or 0000. 
-	 * Example: (1111111111), Length=10, Position[start]=11, Position[end]=20
+	 * [Length=10, Position[start]=11, Position[end]=20]
 	 *
 	 * @var integer
 	 */
-	protected $customerNumber;
+	protected $originatorAccountNumner;
 
 	/**
 	 * File creation number (FCN)
@@ -77,28 +74,28 @@ class Base
 	}
 
 	/**
-	 * Set Customer Number
+	 * Set Originator Account Number
 	 *
 	 * @param integer $value
 	 * @return $this
 	 */
-	public function setCustomerNumber($value)
+	public function setOriginatorAccountNumber($value)
 	{
 		if (10 != strlen($value)) {
 			throw new \Exception('Customer number must contain 10 characters, '.strlen($value). 'given');
 		}
-		$this->customerNumber = $value;
+		$this->originatorAccountNumner = $value;
 		return $this;
 	}
 
 	/**
-	 * Get Customer Number
+	 * Get Originator Account Number
 	 *
 	 * @return integer
 	 */
-	public function getCustomerNumber()
+	public function getOriginatorAccountNumber()
 	{
-		return $this->customerNumber;
+		return $this->originatorAccountNumner;
 	}
 
 	/**
@@ -126,20 +123,23 @@ class Base
 		return $this->fileCreationNumber;
 	}
 
+	/**
+	 * Get Logical Record Type ID
+	 *
+	 * @return string
+	 */
 	public function getLogicalRecordTypeId()
 	{
 		return static::LOGICAL_RECORD_ID;
 	}
 
 	/**
-	 * Generate Fillers
+	 * Get Segement Limit
 	 *
-	 * @return string
+	 * @return integer
 	 */
-	protected function fillers($record, $length = null, $filler = self::FILLER_VALUE_SPACE)
+	public function getSegmentLimit()
 	{
-		$multiplier = null === $length && null !== $record ? self::RECORD_LENGTH - strlen($record) : $length;
-		$multiplier = (int)$multiplier;
-		return str_repeat($filler, $multiplier);
+		return self::SEGMENT_LIMIT;
 	}
 }

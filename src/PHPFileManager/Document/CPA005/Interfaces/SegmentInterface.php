@@ -6,10 +6,12 @@
  */
 namespace Oml\PHPFileManager\Document\CPA005\Interfaces;
 
-interface LogicalRecordTypeInterface
+use Oml\PHPFileManager\Document\CPA005\LogicalRecord\Segment;
+
+interface SegmentInterface
 {
 	/**
-	 * Dump logical record type content
+	 * Dump segment content
 	 * @return string
 	 */
 	public function dump();
