@@ -20,7 +20,7 @@ composer require oromedialab/php-file-manager dev-master
 git clone https://github.com/oromedialab/php-file-manager.git
 ```
 
-1. CPA-005
+1. Canadian Payments Association - CPA-005
 -------------
 Canadian Payments Association (CPA) layout is used by Canadian Banks when exchanging electronic CAD or USD payment details with other Canadian Banks. It is recommended for clients who have mainframe systems and only intend processing payments within Canada.  
 
