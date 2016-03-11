@@ -110,6 +110,8 @@ $writer->dump();
 
 2. Xls
 -------------
+Write and download array content to XLS file using simple to use syntax
+
 ```php
 use Oml\PHPFileManager\Document\Xls;
 
