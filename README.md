@@ -5,6 +5,8 @@ Developed and Maintained by Ibrahim Azhar Armar
 Introduction
 ------------
 PHP Utility Class to Manage Files and Operations
+* [CPA-005](https://github.com/oromedialab/php-file-manager#cpa-005)
+* [XLS](https://github.com/oromedialab/php-file-manager#xls)
 
 #### Install using composer
 ```
@@ -16,7 +18,7 @@ composer require oromedialab/php-file-manager dev-master
 git clone https://github.com/oromedialab/php-file-manager.git
 ```
 
-CPA-005
+1. CPA-005
 -------------
 Canadian Payments Association (CPA) layout is used by Canadian Banks when exchanging electronic CAD or USD payment details with other Canadian Banks. It is recommended for clients who have mainframe systems and only intend processing payments within Canada.  
 
@@ -106,7 +108,7 @@ $writer->download();
 $writer->dump();
 ```
 
-Xls
+2. Xls
 -------------
 ```php
 use Oml\PHPFileManager\Document\Xls;
