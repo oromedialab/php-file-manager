@@ -22,11 +22,11 @@ git clone https://github.com/oromedialab/php-file-manager.git
 
 1. Canadian Payments Association - CPA-005 Writer
 -------------
+This library performs write operations for [CPA-005](https://www.cdnpay.ca/imis15/pdf/pdfs_rules/standard_005.pdf) files
+
 Canadian Payments Association (CPA) layout is used by Canadian Banks when exchanging electronic CAD or USD payment details with other Canadian Banks. It is recommended for clients who have mainframe systems and only intend processing payments within Canada.  
 
 CPA format cannot be used for electronic payments destined to the United States.  
-
-Thie library performs write operations for [CPA-005](https://www.cdnpay.ca/imis15/pdf/pdfs_rules/standard_005.pdf) files
 
 ### Instructions
 * Each first and last logical record of any file must be logical record types "A" and "Z" respectively. All other logical records contain transaction information. 
