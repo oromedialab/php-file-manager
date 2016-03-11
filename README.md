@@ -2,6 +2,8 @@ PHP File Manager
 =============
 Developed and Maintained by Ibrahim Azhar Armar
 
+[![Gitter](https://badges.gitter.im/oromedialab/php-file-manager.svg)](https://gitter.im/oromedialab/php-file-manager?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
 Introduction
 ------------
 PHP Utility Class to Manage Files and Operations
