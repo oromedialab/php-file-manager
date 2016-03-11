@@ -7,7 +7,7 @@ Developed and Maintained by Ibrahim Azhar Armar
 Introduction
 ------------
 PHP Utility Class to Manage Files and Operations
-* [CPA-005](https://github.com/oromedialab/php-file-manager#1-cpa-005)
+* [Canadian Payments Association - CPA-005](https://github.com/oromedialab/php-file-manager#1-canadian-payments-association---cpa-005)
 * [XLS](https://github.com/oromedialab/php-file-manager#2-xls)
 
 #### Install using composer
