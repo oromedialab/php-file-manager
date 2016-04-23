@@ -106,8 +106,9 @@ class Base
 	 */
 	public function setFileCreationNumber($value)
 	{
-		if (4 != strlen($value)) {
-			throw new \Exception('File creation number (FCN) must contain 4 characters, '.strlen($value). 'given');
+		$limit = 4;
+		if (strlen(sprintf('%0'.$limit.'d', $value)) != $limit) {
+			throw new \Exception('File creation number (FCN) must contain 4 characters, '.strlen($value). ' given');
 		}
 		$this->fileCreationNumber = $value;
 		return $this;
@@ -120,7 +121,8 @@ class Base
 	 */
 	public function getFileCreationNumber()
 	{
-		return $this->fileCreationNumber;
+		$limit = 4;
+		return sprintf('%0'.$limit.'d', $this->fileCreationNumber);
 	}
 
 	/**
