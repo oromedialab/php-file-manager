@@ -30,7 +30,7 @@ class Fillers
 	const ZERO_FILLER = '0';
 
 	/**
-	 * Generate Fillers8
+	 * Generate Fillers
 	 * @param  string $record
 	 * @param  int    $length
 	 * @param  string $filler
