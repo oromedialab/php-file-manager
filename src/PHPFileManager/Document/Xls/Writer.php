@@ -10,7 +10,6 @@ namespace Oml\PHPFileManager\Document\Xls;
 
 use PHPExcel;
 use PHPExcel_IOFactory;
-
 use Oml\PHPFileManager\Utility\Functions;
 
 class Writer

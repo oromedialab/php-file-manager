@@ -117,8 +117,20 @@ Write and download array content to XLS file using simple to use syntax
 ```php
 use Oml\PHPFileManager\Document\Xls;
 
+// XLS Writer
 $doc = new Xls\Writer;
 $doc->addRows(array('Ibrahim', 'Azhar', 'azhar@iarmar.com'));
 $doc->addRows(array('John', 'Doe', 'john@doe.com'));
 $doc->download();
+
+// XLS Reader
+$doc = new Xls\Reader('/file/path/document.xlsx');
+// Replace column with indexes
+$doc->replaceColumnWithIndex('0', 'last_name');
+$doc->replaceColumnWithIndex('1', 'first_name');
+$doc->replaceColumnWithIndex('2', 'email');
+// Remove column with indexes
+$doc->removeColumnWithIndexes(array('25, 26, 27'));
+// Dump content
+$content = $doc->toArray();
 ```
