@@ -11,6 +11,7 @@ namespace Oml\PHPFileManager\Document\Xls;
 use PHPExcel;
 use PHPExcel_IOFactory;
 use Oml\PHPFileManager\Utility\Functions;
+use Zend\Stdlib\ErrorHandler;
 
 class Reader
 {
@@ -20,6 +21,13 @@ class Reader
 	 * @var string
 	 */
 	protected $file;
+
+	/**
+	 * Uploaded file name
+	 * 
+	 * @var string
+	 */
+	protected $fileName;
 
 	/**
 	 * Replace column with indexes
@@ -40,7 +48,7 @@ class Reader
 	 *
 	 * @param string $file
 	 */
-	public function __construct($file)
+	public function __construct($file, $fileName = null)
 	{
 		if (is_dir($file)) {
 			throw new \Exception('"'.$file.'" is a directory, file expected.');
@@ -49,6 +57,20 @@ class Reader
 			throw new \Exception('File "'.$file.'" does not exist at given path');
 		}
 		$this->file = $file;
+		$this->fileName = $fileName;
+	}
+
+	public function shutdownHandler() {
+		$errfile = "unknown file";
+		$errstr  = "shutdown";
+		$errno   = E_CORE_ERROR;
+		$errline = 0;
+
+		$error = error_get_last();
+
+		if( $error !== NULL) {
+			die('Error loading file "'.pathinfo($this->fileName, PATHINFO_BASENAME).'", incompatible data format');
+		}
 	}
 
 	/**
@@ -84,13 +106,21 @@ class Reader
 	 */
 	public function toArray($startRow = 5)
 	{
+		error_reporting(0);
+		ini_set('display_errors', 0);
+		register_shutdown_function(array($this, 'shutdownHandler'));
+		ErrorHandler::start();
 		try {
 		    $inputFileType = PHPExcel_IOFactory::identify($this->file);
 		    $objReader = PHPExcel_IOFactory::createReader('Excel2007');
+		    if (!$objReader->canRead($this->file)) {
+		    	die('Error loading file "'.pathinfo($this->fileName, PATHINFO_BASENAME).'", incompatible data format');
+		    }
 		    $objPHPExcel = $objReader->load($this->file);
-		} catch(Exception $e) {
-		    die('Error loading file "'.pathinfo($this->file,PATHINFO_BASENAME).'": '.$e->getMessage());
+		} catch(\Exception $e) {
+		    die('Error loading file "'.pathinfo($this->fileName, PATHINFO_BASENAME).'": '.$e->getMessage());
 		}
+		ErrorHandler::stop(true);
 		$sheet = $objPHPExcel->getSheet(0);
 		$highestRow = $sheet->getHighestRow(); 
 		$highestColumn = $sheet->getHighestColumn();
