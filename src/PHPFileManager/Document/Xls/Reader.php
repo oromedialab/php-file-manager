@@ -66,10 +66,12 @@ class Reader
 		$errno   = E_CORE_ERROR;
 		$errline = 0;
 
-		$error = error_get_last();
+		$errors = error_get_last();
 
-		if( $error !== NULL) {
-			die('Error loading file "'.pathinfo($this->fileName, PATHINFO_BASENAME).'", incompatible data format');
+		if (!empty($errors)) {
+			echo '<pre>';
+			print_r($errors);
+			die;
 		}
 	}
 
