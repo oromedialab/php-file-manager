@@ -124,7 +124,7 @@ $doc->addRows(array('Ibrahim', 'Azhar', 'azhar@iarmar.com'));
 $doc->addRows(array('John', 'Doe', 'john@doe.com'));
 // Set width for column
 $doc->setWidthForColumn('A', 10);
-// Set background column for column range (without hash symbol)
+// Set background color for column range (without hash symbol)
 $doc->setBackgroundColorForColumnRange('A1:D1', '000000');
 // Set font color for column range  (without hash symbol)
 $doc->setFontColorForColumnRange('A1:D1', 'FFFFFF');
