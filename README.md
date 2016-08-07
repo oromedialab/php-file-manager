@@ -112,18 +112,28 @@ $writer->dump();
 
 2. Xls
 -------------
-Write and download array content to XLS file using simple to use syntax
+Write, style and download array content to XLS file using simple to use syntax
 
 ```php
 use Oml\PHPFileManager\Document\Xls;
 
-// XLS Writer
+// Init XLS Writer
 $doc = new Xls\Writer;
+// Add Rows
 $doc->addRows(array('Ibrahim', 'Azhar', 'azhar@iarmar.com'));
 $doc->addRows(array('John', 'Doe', 'john@doe.com'));
+// Set width for column
+$doc->setWidthForColumn('A', 10);
+// Set background column for column range (without hash symbol)
+$doc->setBackgroundColorForColumnRange('A1:D1', '000000');
+// Set font color for column range  (without hash symbol)
+$doc->setFontColorForColumnRange('A1:D1', 'FFFFFF');
+// Align text for column range (HORIZONTAL_CENTER, HORIZONTAL_LEFT, HORIZONTAL_RIGHT)
+$doc->alignTextForColumnRange('A1:D1', 'HORIZONTAL_CENTER');
+// Trigger download
 $doc->download();
 
-// XLS Reader
+// Init XLS Reader
 $doc = new Xls\Reader('/file/path/document.xlsx');
 // Replace column with indexes
 $doc->replaceColumnWithIndex('0', 'last_name');
