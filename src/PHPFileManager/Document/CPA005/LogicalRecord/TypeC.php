@@ -25,7 +25,7 @@ class TypeC extends Base implements LogicalRecordTypeInterface, LogicalSegmentIn
 	 * Logical Record Segments
 	 * @var array
 	 */
-	protected $segments;
+	protected $segments = array();
 
 	/**
 	 * Add segment(s) to logical record
